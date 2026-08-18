@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sanjay's Sizzlers Cheat Sheet</title>
+    <style>
+        :root {
+            --telus-green: #2B8000;
+            --telus-purple: #4B286D;
+            --telus-blue: #2563eb;
+            --koodo-magenta: #E20074;
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-gold: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px;
+            padding-top: 70px;
+        }
+
+        /* Sticky Control Toolbar */
+        .toolbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 50px;
+            background: #020617;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .toolbar-title { font-weight: bold; font-size: 0.9rem; color: var(--text-muted); }
+        .btn-group { display: flex; gap: 8px; }
+
+        button.nav-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+        button.nav-btn:hover { background: #475569; }
+        button.nav-btn.primary { background: var(--telus-green); }
+        button.nav-btn.primary:hover { background: #226600; }
+        button.nav-btn.danger { background: #dc2626; }
+
+        /* Header & Flow Banner */
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #334155;
+            margin-bottom: 24px;
+        }
+        .header h1 { margin: 0; font-size: 2rem; }
+
+        .flow-banner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background: #1e293b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #334155;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        /* Cards Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border-top: 5px solid #64748b;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card.business { border-color: var(--telus-green); }
+        .card.epp { border-color: var(--telus-purple); }
+        .card.consumer { border-color: var(--telus-blue); }
+        .card.koodo { border-color: var(--koodo-magenta); }
+
+        .card-title { font-size: 1.25rem; font-weight: 700; margin-top: 0; margin-bottom: 10px; }
+
+        /* Rate Plans Section */
+        .plans-box {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #334155;
+        }
+
+        .plan-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+        }
+
+        .plan-text { flex-grow: 1; }
+
+        /* Tables & Row Actions */
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 12px; }
+        th, td { padding: 8px 4px; text-align: left; border-bottom: 1px solid #334155; }
+        th { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; }
+
+        .price { font-weight: 700; color: #38bdf8; text-align: right; width: 110px; }
+        .action-col { width: 24px; text-align: center; }
+
+        /* Delete & Add Buttons */
+        .btn-del {
+            background: transparent;
+            color: #64748b;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .btn-del:hover { color: #ef4444; background: rgba(239, 68, 68, 0.15); }
+
+        .btn-add {
+            background: rgba(255, 255, 255, 0.05);
+            color: #38bdf8;
+            border: 1px dashed #38bdf8;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: auto;
+            transition: all 0.2s ease;
+        }
+        .btn-add:hover { background: rgba(56, 189, 248, 0.15); }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 6px;
+        }
+        .badge-hot { background: #ef4444; color: white; }
+        .badge-deal { background: var(--accent-gold); color: black; }
+        .badge-new { background: #10b981; color: white; }
+
+        [contenteditable="true"]:hover {
+            outline: 1px dashed #38bdf8;
+            background: rgba(56, 189, 248, 0.05);
+            border-radius: 3px;
+        }
+
+        /* Hide edit tools when printing to PDF */
+        @media print {
+            .toolbar, .btn-add, .btn-del, .action-col { display: none !important; }
+            body { padding-top: 0; background: white; color: black; }
+            .card { background: white; color: black; border: 1px solid #ccc; box-shadow: none; }
+            .price { color: #0284c7; }
+        }
+    </style>
+</head>
+<body style="padding-top: 20px;">
+    
+        <div class="header">
+            <h1>🔥 Sanjay's Sizzlers Cheat Sheet 🔥</h1>
+            <div class="flow-banner">
+                <span>Sales Flow:</span>
+                <span class="flow-step" style="background: var(--telus-green); color: white;">1. Business First</span>
+                <span>➔</span>
+                <span class="flow-step" style="background: var(--telus-purple); color: white;">2. EPP</span>
+                <span>➔</span>
+                <span class="flow-step" style="background: var(--telus-blue); color: white;">3. TELUS Consumer</span>
+                <span>➔</span>
+                <span class="flow-step" style="background: var(--koodo-magenta); color: white;">4. Koodo</span>
+            </div>
+        </div>
+
+        <div class="grid-container">
+
+            <!-- BUSINESS -->
+            <div class="card business">
+                <div class="card-title">🏢 1. Business First</div>
+                
+                <div class="plans-box">
+                    <div class="plans-list">
+                        <div class="plan-item">
+                            <span class="plan-text">• <b>$60 / 60GB</b> CAN</span>
+                            
+                        </div>
+                        <div class="plan-item">
+                            <span class="plan-text">• <b>$50 / 100GB</b> CAN-US (Bundle w/ Fiber/SHS)</span>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <table>
+                    <thead><tr><th>Device</th><th style="text-align:right;">Cost</th></tr></thead>
+                    <tbody>
+                        <tr><td>Pixel 10 <span class="badge badge-hot">$0 OFFER</span></td><td class="price">$0.00/mo</td></tr>
+                        <tr><td>Galaxy S26</td><td class="price">$14.98/mo</td></tr>
+                        <tr><td>Galaxy Z Flip 8 <span class="badge badge-new">NEW</span></td><td class="price">$15.19/mo</td></tr>
+                        <tr><td>iPhone 16 (EW)</td><td class="price">$27.79/mo</td></tr>
+                        <tr><td>iPhone 17</td><td class="price">$33.38/mo</td></tr>
+                        <tr><td>Galaxy Fold 8 <span class="badge badge-new">NEW</span></td><td class="price">$35.00/mo</td></tr>
+                    </tbody>
+                </table>
+                
+            </div>
+
+            <!-- EPP -->
+            <div class="card epp">
+                <div class="card-title">💼 2. EPP (Employee Purchase)</div>
+                
+                <div class="plans-box">
+                    <div class="plans-list">
+                        <div class="plan-item">
+                            <span class="plan-text">• <b>$70 / 100GB</b> CAN-US (Core)</span>
+                            
+                        </div>
+                        <div class="plan-item">
+                            <span class="plan-text">• <b>$65 / 100GB</b> CAN-US (Flex/Plus)</span>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <table>
+                    <thead><tr><th>Device</th><th style="text-align:right;">Cost</th></tr></thead>
+                    <tbody>
+                        <tr><td>Pixel 10 (128GB) / 10 Pro</td><td class="price">$0.00/mo</td></tr>
+                        <tr><td>iPhone Air <span class="badge badge-hot">RESTOCK</span></td><td class="price">$5.00/mo</td></tr>
+                        <tr><td>Galaxy S25 FE</td><td class="price">$5.00/mo</td></tr>
+                        <tr><td>Pixel 10 Pro XL (512GB)</td><td class="price">$10.67/mo</td></tr>
+                        <tr><td>Galaxy S26</td><td class="price">$14.98/mo</td></tr>
+                        <tr><td>Galaxy Flip 8</td><td class="price">$15.21/mo</td></tr>
+                        <tr><td>iPhone 17 Pro <span class="badge badge-deal">CHEAPER THAN 17</span></td><td class="price">$28.00/mo</td></tr>
+                        <tr><td>iPhone 17</td><td class="price">$28.38/mo</td></tr>
+                        <tr><td>Galaxy S26 Ultra</td><td class="price">$30.00/mo</td></tr>
+                        <tr><td>iPhone 17 Pro Max</td><td class="price">$30.54/mo</td></tr>
+                    </tbody>
+                </table>
+                
+            </div>
+
+            <!-- TELUS CONSUMER -->
+            <div class="card consumer">
+                <div class="card-title">👥 3. TELUS Consumer</div>
+                
+                <div class="plans-box">
+                    <div class="plans-list">
+                        <div class="plan-item">
+                            <span class="plan-text">• <b>$85 / 100GB</b> CAN-US (Premium+)</span>
+                            
+                        </div>
+                        <div class="plan-item">
+                            <span class="plan-text">• <b>$65 / 100GB</b> CAN-US (K2T) | <b>$45</b> (P2P)</span>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <table>
+                    <thead><tr><th>Device</th><th style="text-align:right;">Cost</th></tr></thead>
+                    <tbody>
+                        <tr><td>Pixel 10 (128GB)</td><td class="price">$0.00/mo</td></tr>
+                        <tr><td>Galaxy S25 FE <span class="badge badge-deal">$1 DEAL</span></td><td class="price">$1.00/mo</td></tr>
+                        <tr><td>iPhone 16 Plus (128GB)</td><td class="price">$14.00/mo</td></tr>
+                        <tr><td>Galaxy S26</td><td class="price">$14.96/mo</td></tr>
+                        <tr><td>Galaxy Flip 8</td><td class="price">$15.17/mo</td></tr>
+                        <tr><td>iPhone 17</td><td class="price">$33.38/mo</td></tr>
+                    </tbody>
+                </table>
+                
+            </div>
+
+            <!-- KOODO -->
+            <div class="card koodo">
+                <div class="card-title">🟢 4. Koodo (Top &amp; Budget Picks)</div>
+                
+                <div class="plans-box">
+                    <div class="plans-list">
+                        <div class="plan-item">
+                            <span class="plan-text">• <b>$60 / 60GB</b> CAN | <b>$45 / 100GB</b> CAN-US-MEX</span>
+                            
+                        </div>
+                        <div class="plan-item">
+                            <span class="plan-text">• Value: <b>$45 20GB</b> CAN / <b>$40 100GB</b> P2P</span>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <table>
+                    <thead><tr><th>Device</th><th style="text-align:right;">Cost</th></tr></thead>
+                    <tbody>
+                        <tr><td>Pixel 10 (128GB)</td><td class="price">$6.63/mo</td></tr>
+                        <tr><td>CPO iPhone 14 (Grade C)</td><td class="price">$8.00/mo</td></tr>
+                        <tr><td>Moto G 5G (2026)</td><td class="price">$9.58/mo</td></tr>
+                        <tr><td>Galaxy S25 FE / A17</td><td class="price">$10.00 - $10.32/mo</td></tr>
+                        <tr><td>CPO Galaxy S24 (Grade C)</td><td class="price">$13.00/mo</td></tr>
+                        <tr><td>Moto Razr 2025</td><td class="price">$15.00/mo</td></tr>
+                        <tr><td>Pixel 10 Pro</td><td class="price">$21.96/mo</td></tr>
+                        <tr><td>CPO iPhone 15 (Grade C)</td><td class="price">$22.00/mo</td></tr>
+                    </tbody>
+                </table>
+                
+            </div>
+
+        </div>
+    
+</body>
+</html>
